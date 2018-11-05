@@ -8,18 +8,44 @@ import view.HistogramDisplay;
 import view.MailHistogramBuilder;
 import view.MailListReader;
  public class Kata4 {
-    
+
+    private String fileName;
+    private List<Mail> mailList;
+    private Histogram<String> histogram;
+    private HistogramDisplay histoDisplay;
+
+    public Kata4(String fileName) {
+        this.fileName = fileName;
+    }
+
     public static void main(String[] args) {
-        String fileName = "email.txt";
+        Kata4 kata4 = new Kata4("email.txt");
+ 
         try {
-            List<Mail> mailList = MailListReader.read(fileName);
-            Histogram<String> histogram = MailHistogramBuilder.build(mailList);
-            HistogramDisplay histoDisplay = new HistogramDisplay(histogram);
-            histoDisplay.execute();
+            kata4.execute();
         } catch (FileNotFoundException e) {
-            System.out.println("Fichero no encontrado");
+            System.out.println("Fichero no encontrado: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("Error de entrada salida");
+            System.out.println("Error de entrada salida: " + e.getMessage());
         }
+    }
+
+    public void execute() throws IOException {
+        input();
+        process();
+        output();
+    }
+
+    public void input() throws IOException {
+        mailList = MailListReader.read(fileName);
+    }
+
+    public void process() {
+        histogram = MailHistogramBuilder.build(mailList);
+    }
+
+    public void output() {
+        histoDisplay = new HistogramDisplay(histogram);
+        histoDisplay.execute();
     }
 }
