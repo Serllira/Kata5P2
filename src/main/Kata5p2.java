@@ -1,33 +1,28 @@
 package main;
  import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Histogram;
 import model.Mail;
 import view.HistogramDisplay;
 import view.MailHistogramBuilder;
 import view.MailListReader;
- public class Kata4 {
+import view.MailListReaderBD;
+ public class Kata5p2 {
 
     private String fileName;
     private List<Mail> mailList;
     private Histogram<String> histogram;
     private HistogramDisplay histoDisplay;
-
-    public Kata4(String fileName) {
-        this.fileName = fileName;
+    
+    public Kata5p2(){
+        mailList = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
-        Kata4 kata4 = new Kata4("email.txt");
- 
-        try {
-            kata4.execute();
-        } catch (FileNotFoundException e) {
-            System.out.println("Fichero no encontrado: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error de entrada salida: " + e.getMessage());
-        }
+    public static void main(String[] args) throws IOException {
+        Kata5p2 kata5p2 = new Kata5p2();
+        kata5p2.execute();
     }
 
     public void execute() throws IOException {
@@ -37,7 +32,7 @@ import view.MailListReader;
     }
 
     public void input() throws IOException {
-        mailList = MailListReader.read(fileName);
+        mailList = MailListReaderBD.read(fileName);
     }
 
     public void process() {
